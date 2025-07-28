@@ -1,334 +1,390 @@
-<?php include_once("index.html"); ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Votre Nom - Développeur Backend Laravel</title>
-    <meta name="description" content="Portfolio professionnel de [Votre Nom], développeur backend Laravel spécialisé dans la conception d'APIs robustes, l'optimisation de bases de données et le déploiement sécurisé.">
+import React, { useState, useEffect } from 'react';
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+// Main App component for the Laravel 12 Portfolio
+const App = () => {
+    // State to manage the currently active section for navigation
+    const [activeSection, setActiveSection] = useState('home');
+    // State to manage the visibility of the mobile navigation menu
+    const [isNavOpen, setIsNavOpen] = useState(false);
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
+    // Effect to scroll to the active section when it changes
+    useEffect(() => {
+        const element = document.getElementById(activeSection);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
         }
+    }, [activeSection]);
 
-        /* Custom Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    // Function to handle navigation clicks
+    const handleNavClick = (section) => {
+        setActiveSection(section);
+        setIsNavOpen(false); // Close mobile nav after clicking a link
+    };
 
-        .animate-fadeInUp {
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        .animate-fadeInUp-visible {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-400 { animation-delay: 0.4s; }
-
-        /* Icon Sizing */
-        .icon-svg {
-            display: inline-block;
-            width: 1.5em;
-            height: 1.5em;
-            vertical-align: middle;
-        }
-
-        /* Mobile Menu */
-        #mobile-menu.hidden {
-            display: none;
-        }
-    </style>
-</head>
-<body class="bg-gray-950 text-gray-200 leading-normal tracking-wide">
-
-    <header class="bg-black py-4 shadow-xl sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
-            <a href="#" class="text-2xl sm:text-3xl font-extrabold text-green-500 hover:text-green-400 transition duration-300 p-2 rounded-lg">
-                <span class="text-white">Votre</span><span class="text-green-500">Nom</span>
-            </a>
-            <nav class="hidden md:block">
-                <ul class="flex space-x-4 lg:space-x-8">
-                    <li><a href="#about" class="text-base lg:text-lg text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">À Propos</a></li>
-                    <li><a href="#skills" class="text-base lg:text-lg text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">Compétences</a></li>
-                    <li><a href="#projects" class="text-base lg:text-lg text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">Projets</a></li>
-                    <li><a href="#contact" class="text-base lg:text-lg text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-300 hover:text-green-500 focus:outline-none">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <nav id="mobile-menu" class="md:hidden bg-black px-4 pt-2 pb-4 hidden">
-            <ul class="flex flex-col space-y-2">
-                <li><a href="#about" class="block text-base text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">À Propos</a></li>
-                <li><a href="#skills" class="block text-base text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">Compétences</a></li>
-                <li><a href="#projects" class="block text-base text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">Projets</a></li>
-                <li><a href="#contact" class="block text-base text-gray-300 hover:text-green-500 transition duration-300 p-2 rounded-md">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="hero" class="relative h-screen flex items-center justify-center bg-cover bg-center"
-        style="background-image: url('https://placehold.co/1920x1080/1a202c/68d391?text=Your+Background+Image');">
-        <div class="absolute inset-0 bg-black opacity-75"></div>
-        <div class="z-10 text-center p-4 mx-auto max-w-4xl">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-3 sm:mb-4 animate-fadeInUp">
-                [Votre Nom] <span class="text-green-500">// Développeur Backend</span>
-            </h1>
-            <p class="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 animate-fadeInUp delay-200">
-                Conception d'APIs robustes, Optimisation de bases de données et Déploiement sécurisé avec Laravel.
-            </p>
-            <a href="#projects" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 sm:py-3.5 sm:px-8 rounded-full text-base sm:text-lg transition duration-300 transform hover:scale-105 shadow-lg animate-fadeInUp delay-400">
-                Voir Mes Projets
-            </a>
-        </div>
-    </section>
-
-    ---
-
-    <section id="about" class="py-12 sm:py-16 bg-gray-900 rounded-b-xl shadow-inner">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-10 border-b-4 border-green-500 pb-2 sm:pb-3 inline-block rounded-sm">
-                À Propos de Moi
-            </h2>
-            <div class="max-w-3xl mx-auto text-base sm:text-lg text-gray-300 leading-relaxed">
-                <p class="mb-4">
-                    Passionné par le développement backend, je suis spécialisé dans la création d'applications robustes et scalables avec <strong class="text-white">Laravel</strong>. Mon approche est axée sur la performance, la sécurité et la maintenabilité du code.
-                </p>
-                <p class="mb-4">
-                    Fort d'une expérience solide en <strong class="text-white">PHP 8.x</strong> et en gestion de bases de données (MySQL, PostgreSQL), je transforme les concepts complexes en solutions fonctionnelles et efficaces. Je suis constamment à l'affût des nouvelles technologies pour offrir des solutions innovantes.
-                </p>
-                <p>
-                    J'intègre également les <strong class="text-white">outils d'intelligence artificielle</strong> dans mon processus de développement pour optimiser le codage, le débogage et l'exploration architecturale, garantissant ainsi des livrables de haute qualité et une productivité accrue.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    ---
-
-    <section id="skills" class="py-12 sm:py-16 bg-gray-950">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-10 border-b-4 border-green-500 pb-2 sm:pb-3 inline-block rounded-sm">
-                Mes Compétences Techniques
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">Laravel (Expert)</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        Maîtrise complète du framework : <strong class="text-white">Eloquent ORM, Blade, Routage, Middleware, Queues, Events, Notifications</strong>. Développement d'APIs RESTful et GraphQL.
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">PHP 8.x (Avancé)</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        Connaissance approfondie du langage, <strong class="text-white">POO, design patterns</strong>, et optimisation des performances.
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">Bases de Données</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        Conception et optimisation de schémas (<strong class="text-white">MySQL, PostgreSQL</strong>), requêtes complexes, indexation, migrations.
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">Développement API</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        Création d'APIs <strong class="text-white">RESTful et GraphQL</strong> avec Laravel Sanctum/Passport, gestion des versions, documentation (Swagger/OpenAPI).
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">Tests & Qualité</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        Tests unitaires (<strong class="text-white">PHPUnit</strong>), tests d'intégration, TDD (Test-Driven Development) pour un code robuste.
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">Outils d'IA pour le Dev</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        Utilisation de l'IA pour l'assistance au codage, la génération de tests, l'optimisation et l'exploration de solutions.
-                    </p>
-                </div>
-                <div class="bg-gray-800 p-5 sm:p-7 rounded-xl shadow-xl border-t-4 border-green-600 transform hover:scale-105 transition duration-300 ease-in-out">
-                    <h3 class="text-xl sm:text-2xl font-semibold text-green-500 mb-2 sm:mb-3">Déploiement & DevOps</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">
-                        <strong class="text-white">Docker, Git, CI/CD</strong> (GitHub Actions), Nginx, Linux.
-                    </p>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    ---
-
-    <section id="projects" class="py-12 sm:py-16 bg-gray-900 rounded-t-xl shadow-inner">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-10 border-b-4 border-green-500 pb-2 sm:pb-3 inline-block rounded-sm">
-                Mes Projets Réalisés
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                <div class="bg-gray-950 rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
-                    <img src="https://placehold.co/600x350/2d3748/68d391?text=Projet+E-commerce" alt="Capture d'écran Projet E-commerce" class="w-full h-40 sm:h-48 object-cover">
-                    <div class="p-4 sm:p-5">
-                        <h3 class="text-lg sm:text-xl font-semibold text-green-500 mb-2">API E-commerce Robuste (Laravel 12)</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3">
-                            Développement complet d'une API RESTful pour une plateforme e-commerce, incluant gestion des produits, commandes, utilisateurs et paiements sécurisés via Stripe.
-                        </p>
-                        <ul class="flex flex-wrap gap-2 text-xs sm:text-sm text-gray-400 mb-4 justify-center">
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Laravel 12</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">PHP 8.x</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">MySQL</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Stripe API</li>
-                        </ul>
-                        <a href="https://github.com/skillformation/MaBoutique.git" target="_blank" class="text-green-500 hover:text-green-400 font-bold flex items-center justify-center text-sm sm:text-base">
-                            Voir le Code
-                            <svg class="ml-2 w-4 h-4 sm:w-5 sm:h-5 icon-svg" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.163 6.839 9.48.5.092.682-.217.682-.483 0-.237-.009-.86-.014-1.688-2.782.604-3.369-1.34-3.369-1.34-.455-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.523 2.336 1.082 2.903.827.09-.643.349-1.082.637-1.334-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.03-2.68A4.323 4.323 0 018.84 6.37c.09-.26.368-1.29.086-2.67c0 0-.8-.256-2.64 1.02a9.208 9.208 0 00-2.522.342c-.812 2.228-2.64 1.02-2.64 1.02-.282 1.38.006 2.41.086 2.67.64 0 1.03-.89 1.03-2.68.64-.696 1.53-1.09 2.62-1.09.81 0 1.52.196 2.12.56.29.17.58.38.86.62.63.42 1.13.98 1.58 1.63.45.65.81 1.38 1.08 2.17.27.79.37 1.68.37 2.68 0 3.837-2.335 4.689-4.555 4.943.359.308.678.924.678 1.868 0 1.353-.012 2.443-.012 2.766 0 .269.18.575.689.483C19.135 20.163 22 16.419 22 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+    return (
+        <div className="min-h-screen bg-gray-100 font-sans text-gray-800">
+            {/* Header and Navigation */}
+            <header className="bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-lg fixed w-full z-50">
+                <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
+                    {/* Brand/Logo */}
+                    <div className="text-2xl font-bold tracking-tight">
+                        <a href="#home" onClick={() => handleNavClick('home')} className="hover:text-blue-200 transition-colors duration-300">
+                            Votre Nom - Portfolio Laravel 12
                         </a>
                     </div>
-                </div>
 
-                <div class="bg-gray-950 rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
-                    <img src="https://placehold.co/600x350/2d3748/68d391?text=Projet+Blog" alt="Capture d'écran Projet Blog" class="w-full h-40 sm:h-48 object-cover">
-                    <div class="p-4 sm:p-5">
-                        <h3 class="text-lg sm:text-xl font-semibold text-green-500 mb-2">Plateforme de Blog (Laravel Breeze & Livewire)</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3">
-                            Création d'un système de gestion de contenu pour blog, avec authentification utilisateur, rédaction et publication d'articles, et commentaires en temps réel.
+                    {/* Desktop Navigation */}
+                    <ul className="hidden md:flex space-x-8 text-lg">
+                        <li>
+                            <a href="#home" onClick={() => handleNavClick('home')} className={`hover:text-blue-200 transition-colors duration-300 ${activeSection === 'home' ? 'font-semibold' : ''}`}>
+                                Accueil
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" onClick={() => handleNavClick('about')} className={`hover:text-blue-200 transition-colors duration-300 ${activeSection === 'about' ? 'font-semibold' : ''}`}>
+                                À Propos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#skills" onClick={() => handleNavClick('skills')} className={`hover:text-blue-200 transition-colors duration-300 ${activeSection === 'skills' ? 'font-semibold' : ''}`}>
+                                Compétences
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#projects" onClick={() => handleNavClick('projects')} className={`hover:text-blue-200 transition-colors duration-300 ${activeSection === 'projects' ? 'font-semibold' : ''}`}>
+                                Projets
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" onClick={() => handleNavClick('contact')} className={`hover:text-blue-200 transition-colors duration-300 ${activeSection === 'contact' ? 'font-semibold' : ''}`}>
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+
+                    {/* Mobile Navigation Toggle */}
+                    <button
+                        className="md:hidden text-white focus:outline-none"
+                        onClick={() => setIsNavOpen(!isNavOpen)}
+                        aria-label="Toggle navigation"
+                    >
+                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            {isNavOpen ? (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                            ) : (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                            )}
+                        </svg>
+                    </button>
+                </nav>
+
+                {/* Mobile Navigation Menu */}
+                {isNavOpen && (
+                    <ul className="md:hidden bg-blue-700 text-white py-4 px-4 space-y-2">
+                        <li>
+                            <a href="#home" onClick={() => handleNavClick('home')} className="block py-2 px-4 hover:bg-blue-600 rounded-md">Accueil</a>
+                        </li>
+                        <li>
+                            <a href="#about" onClick={() => handleNavClick('about')} className="block py-2 px-4 hover:bg-blue-600 rounded-md">À Propos</a>
+                        </li>
+                        <li>
+                            <a href="#skills" onClick={() => handleNavClick('skills')} className="block py-2 px-4 hover:bg-blue-600 rounded-md">Compétences</a>
+                        </li>
+                        <li>
+                            <a href="#projects" onClick={() => handleNavClick('projects')} className="block py-2 px-4 hover:bg-blue-600 rounded-md">Projets</a>
+                        </li>
+                        <li>
+                            <a href="#contact" onClick={() => handleNavClick('contact')} className="block py-2 px-4 hover:bg-blue-600 rounded-md">Contact</a>
+                        </li>
+                    </ul>
+                )}
+            </header>
+
+            {/* Main content area, with padding to account for fixed header */}
+            <main className="pt-20"> {/* Adjust padding-top based on header height */}
+
+                {/* Home Section */}
+                <section id="home" className="relative h-screen flex items-center justify-center bg-cover bg-center text-white" style={{ backgroundImage: "url('https://placehold.co/1920x1080/0F172A/E2E8F0?text=Bienvenue+sur+mon+Portfolio')" }}>
+                    <div className="absolute inset-0 bg-black opacity-60"></div>
+                    <div className="relative z-10 text-center p-8 rounded-lg bg-gray-900 bg-opacity-70 shadow-2xl max-w-3xl mx-auto">
+                        <h1 className="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
+                            Votre Nom
+                        </h1>
+                        <p className="text-2xl md:text-3xl font-light mb-8">
+                            L'ingénieur développement web Laravel 12 le plus performant au monde.
                         </p>
-                        <ul class="flex flex-wrap gap-2 text-xs sm:text-sm text-gray-400 mb-4 justify-center">
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Laravel 11</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Livewire</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Tailwind CSS</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">SQLite</li>
-                        </ul>
-                        <a href="https://github.com/yourusername/project-blog-repo" target="_blank" class="text-green-500 hover:text-green-400 font-bold flex items-center justify-center text-sm sm:text-base">
-                            Voir le Code
-                            <svg class="ml-2 w-4 h-4 sm:w-5 sm:h-5 icon-svg" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.163 6.839 9.48.5.092.682-.217.682-.483 0-.237-.009-.86-.014-1.688-2.782.604-3.369-1.34-3.369-1.34-.455-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.523 2.336 1.082 2.903.827.09-.643.349-1.082.637-1.334-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.03-2.68A4.323 4.323 0 018.84 6.37c.09-.26.368-1.29.086-2.67c0 0-.8-.256-2.64 1.02a9.208 9.208 0 00-2.522.342c-.812 2.228-2.64 1.02-2.64 1.02-.282 1.38.006 2.41.086 2.67.64 0 1.03-.89 1.03-2.68.64-.696 1.53-1.09 2.62-1.09.81 0 1.52.196 2.12.56.29.17.58.38.86.62.63.42 1.13.98 1.58 1.63.45.65.81 1.38 1.08 2.17.27.79.37 1.68.37 2.68 0 3.837-2.335 4.689-4.555 4.943.359.308.678.924.678 1.868 0 1.353-.012 2.443-.012 2.766 0 .269.18.575.689.483C19.135 20.163 22 16.419 22 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+                        <a
+                            href="#projects"
+                            onClick={() => handleNavClick('projects')}
+                            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                        >
+                            Voir mes Projets
                         </a>
                     </div>
-                </div>
+                </section>
 
-                <div class="bg-gray-950 rounded-xl shadow-xl overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
-                    <img src="https://placehold.co/600x350/2d3748/68d391?text=Projet+Dashboard+Admin" alt="Capture d'écran Projet Dashboard Admin" class="w-full h-40 sm:h-48 object-cover">
-                    <div class="p-4 sm:p-5">
-                        <h3 class="text-lg sm:text-xl font-semibold text-green-500 mb-2">Tableau de Bord Administratif (Laravel Filament)</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3">
-                            Développement d'un panneau d'administration intuitif et riche en fonctionnalités pour la gestion des utilisateurs, des contenus et des rapports.
-                        </p>
-                        <ul class="flex flex-wrap gap-2 text-xs sm:text-sm text-gray-400 mb-4 justify-center">
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Laravel 12</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Filament PHP</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">Vue.js (pour certains composants)</li>
-                            <li class="bg-gray-700 px-2 py-1 rounded-full">PostgreSQL</li>
-                        </ul>
-                        <a href="https://github.com/yourusername/project-admin-dashboard-repo" target="_blank" class="text-green-500 hover:text-green-400 font-bold flex items-center justify-center text-sm sm:text-base">
-                            Voir le Code
-                            <svg class="ml-2 w-4 h-4 sm:w-5 sm:h-5 icon-svg" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.163 6.839 9.48.5.092.682-.217.682-.483 0-.237-.009-.86-.014-1.688-2.782.604-3.369-1.34-3.369-1.34-.455-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.523 2.336 1.082 2.903.827.09-.643.349-1.082.637-1.334-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.03-2.68A4.323 4.323 0 018.84 6.37c.09-.26.368-1.29.086-2.67c0 0-.8-.256-2.64 1.02a9.208 9.208 0 00-2.522.342c-.812 2.228-2.64 1.02-2.64 1.02-.282 1.38.006 2.41.086 2.67.64 0 1.03-.89 1.03-2.68.64-.696 1.53-1.09 2.62-1.09.81 0 1.52.196 2.12.56.29.17.58.38.86.62.63.42 1.13.98 1.58 1.63.45.65.81 1.38 1.08 2.17.27.79.37 1.68.37 2.68 0 3.837-2.335 4.689-4.555 4.943.359.308.678.924.678 1.868 0 1.353-.012 2.443-.012 2.766 0 .269.18.575.689.483C19.135 20.163 22 16.419 22 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                        </a>
+                {/* About Section */}
+                <section id="about" className="py-20 bg-white shadow-inner">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-bold text-center mb-12 text-blue-700">À Propos de Moi</h2>
+                        <div className="flex flex-col md:flex-row items-center md:space-x-12">
+                            <div className="md:w-1/3 mb-8 md:mb-0">
+                                <img
+                                    src="https://placehold.co/400x400/6B7280/F9FAFB?text=Votre+Photo"
+                                    alt="Votre Photo de Profil"
+                                    className="rounded-full shadow-xl w-64 h-64 mx-auto object-cover border-4 border-blue-500"
+                                />
+                            </div>
+                            <div className="md:w-2/3 text-lg leading-relaxed text-gray-700">
+                                <p className="mb-4">
+                                    Fort de mon expérience en tant qu'ingénieur développement web, je me spécialise dans la création d'applications web robustes, performantes et sécurisées avec <strong className="text-blue-600">Laravel 12</strong>. Ma passion réside dans la résolution de problèmes complexes et la conception de solutions élégantes qui répondent aux besoins les plus exigeants.
+                                </p>
+                                <p className="mb-4">
+                                    Je suis un fervent adepte des bonnes pratiques de développement, de l'écriture de code propre et maintenable, et de l'implémentation de tests rigoureux pour garantir la qualité. Mon expertise couvre le cycle de vie complet du développement logiciel, de la conception à la mise en production.
+                                </p>
+                                <p>
+                                    En dehors du code, j'aime rester à jour avec les dernières tendances technologiques et contribuer à la communauté open source. Je suis toujours à la recherche de nouveaux défis pour repousser les limites de ce qui est possible avec Laravel et les technologies web modernes.
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                </section>
+
+                {/* Skills Section */}
+                <section id="skills" className="py-20 bg-gray-50">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-bold text-center mb-12 text-purple-700">Mes Compétences Techniques</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {/* Skill Card: Laravel 12 */}
+                            <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-4 border-blue-500">
+                                <h3 className="text-2xl font-semibold mb-4 text-blue-600">Laravel 12 & PHP</h3>
+                                <p className="text-gray-700">
+                                    Maîtrise approfondie de Laravel 12 pour le développement backend, incluant Eloquent ORM, Blade Templating, Artisan CLI, Middleware, Service Providers, Queues, Events, Notifications, et l'intégration d'APIs tierces. Expertise en PHP 8.x et programmation orientée objet.
+                                </p>
+                            </div>
+                            {/* Skill Card: Frontend Frameworks */}
+                            <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-4 border-green-500">
+                                <h3 className="text-2xl font-semibold mb-4 text-green-600">Frontend (React, Vue.js, Livewire)</h3>
+                                <p className="text-gray-700">
+                                    Développement d'interfaces utilisateur interactives et réactives avec React.js et Vue.js. Expérience avec Livewire et Inertia.js pour des applications full-stack plus fluides avec Laravel. Maîtrise de JavaScript ES6+, HTML5 et CSS3.
+                                </p>
+                            </div>
+                            {/* Skill Card: Databases & Caching */}
+                            <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-4 border-red-500">
+                                <h3 className="text-2xl font-semibold mb-4 text-red-600">Bases de Données & Caching</h3>
+                                <p className="text-gray-700">
+                                    Conception et optimisation de bases de données relationnelles (MySQL, PostgreSQL). Utilisation de Redis pour le caching et les files d'attente. Maîtrise de la migration de données et de l'optimisation des requêtes.
+                                </p>
+                            </div>
+                            {/* Skill Card: Testing & Quality */}
+                            <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-4 border-yellow-500">
+                                <h3 className="text-2xl font-semibold mb-4 text-yellow-600">Tests & Qualité de Code</h3>
+                                <p className="text-gray-700">
+                                    Implémentation de tests unitaires et fonctionnels avec PHPUnit et PestPHP. Utilisation de Laravel Dusk pour les tests d'intégration. Adhésion aux principes SOLID, DRY, et aux bonnes pratiques de code pour un code propre et maintenable.
+                                </p>
+                            </div>
+                            {/* Skill Card: DevOps & Deployment */}
+                            <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-4 border-indigo-500">
+                                <h3 className="text-2xl font-semibold mb-4 text-indigo-600">DevOps & Déploiement</h3>
+                                <p className="text-gray-700">
+                                    Déploiement d'applications Laravel sur des serveurs (Forge, Vapor, AWS, DigitalOcean). Configuration de Nginx/Apache. Expérience avec Docker pour la conteneurisation et CI/CD (GitHub Actions, GitLab CI) pour l'automatisation.
+                                </p>
+                            </div>
+                            {/* Skill Card: API Development */}
+                            <div className="bg-white p-8 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-4 border-pink-500">
+                                <h3 className="text-2xl font-semibold mb-4 text-pink-600">Développement d'API RESTful</h3>
+                                <p className="text-gray-700">
+                                    Conception et développement d'APIs RESTful sécurisées et performantes avec Laravel Sanctum ou Passport. Gestion des versions d'API, documentation (Swagger/OpenAPI) et intégration avec des services externes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Projects Section */}
+                <section id="projects" className="py-20 bg-white shadow-inner">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-bold text-center mb-12 text-blue-700">Mes Projets Laravel 12</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                            {/* Project Card 1 */}
+                            <div className="bg-gray-50 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                                <img
+                                    src="https://placehold.co/600x400/3B82F6/FFFFFF?text=Projet+SaaS+Laravel"
+                                    alt="Projet SaaS Laravel"
+                                    className="w-full h-56 object-cover"
+                                />
+                                <div className="p-6">
+                                    <h3 className="text-2xl font-semibold mb-3 text-blue-600">Plateforme SaaS Multi-Locataire</h3>
+                                    <p className="text-gray-700 mb-4">
+                                        Développement d'une plateforme SaaS complète avec Laravel 12, gérant l'authentification, les abonnements (Stripe), les rôles et permissions, et une architecture multi-locataire robuste. Utilisation de Livewire pour une expérience utilisateur dynamique.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Laravel 12</span>
+                                        <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Livewire</span>
+                                        <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Tailwind CSS</span>
+                                        <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Stripe API</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold flex items-center" target="_blank" rel="noopener noreferrer">
+                                            Voir le Projet
+                                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.25 10.5L21 14.25m0 0L17.25 18m3.75-3.75H3"></path></svg>
+                                        </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-700 flex items-center" target="_blank" rel="noopener noreferrer">
+                                            <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.474-1.11-1.474-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.953 0-1.096.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.407.098 2.65.64.7 1.028 1.591 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2Z" clipRule="evenodd" /></svg>
+                                            GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Project Card 2 */}
+                            <div className="bg-gray-50 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                                <img
+                                    src="https://placehold.co/600x400/EF4444/FFFFFF?text=API+RESTful+Laravel"
+                                    alt="API RESTful Laravel"
+                                    className="w-full h-56 object-cover"
+                                />
+                                <div className="p-6">
+                                    <h3 className="text-2xl font-semibold mb-3 text-red-600">API RESTful Complexe pour E-commerce</h3>
+                                    <p className="text-gray-700 mb-4">
+                                        Conception et implémentation d'une API RESTful robuste pour une application e-commerce, gérant les produits, les commandes, les utilisateurs et les paiements. Sécurisée avec Laravel Sanctum et documentée avec Swagger.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Laravel 12</span>
+                                        <span className="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Laravel Sanctum</span>
+                                        <span className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">MySQL</span>
+                                        <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Swagger</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold flex items-center" target="_blank" rel="noopener noreferrer">
+                                            Voir la Doc API
+                                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.25 10.5L21 14.25m0 0L17.25 18m3.75-3.75H3"></path></svg>
+                                        </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-700 flex items-center" target="_blank" rel="noopener noreferrer">
+                                            <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.474-1.11-1.474-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.953 0-1.096.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.407.098 2.65.64.7 1.028 1.591 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2Z" clipRule="evenodd" /></svg>
+                                            GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Project Card 3 */}
+                            <div className="bg-gray-50 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                                <img
+                                    src="https://placehold.co/600x400/10B981/FFFFFF?text=CMS+Personnalisé"
+                                    alt="CMS Personnalisé"
+                                    className="w-full h-56 object-cover"
+                                />
+                                <div className="p-6">
+                                    <h3 className="text-2xl font-semibold mb-3 text-green-600">Système de Gestion de Contenu (CMS) Personnalisé</h3>
+                                    <p className="text-gray-700 mb-4">
+                                        Développement d'un CMS sur mesure avec Laravel 12 et Filament, offrant une interface d'administration intuitive pour la gestion de contenu, d'utilisateurs et de médias. Optimisé pour la performance et la sécurité.
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Laravel 12</span>
+                                        <span className="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">FilamentPHP</span>
+                                        <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">MySQL</span>
+                                        <span className="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Vue.js</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold flex items-center" target="_blank" rel="noopener noreferrer">
+                                            Voir le Projet
+                                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.25 10.5L21 14.25m0 0L17.25 18m3.75-3.75H3"></path></svg>
+                                        </a>
+                                        <a href="#" className="text-gray-500 hover:text-gray-700 flex items-center" target="_blank" rel="noopener noreferrer">
+                                            <svg className="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.474-1.11-1.474-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.953 0-1.096.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.407.098 2.65.64.7 1.028 1.591 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2Z" clipRule="evenodd" /></svg>
+                                            GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-center mt-12">
+                            <p className="text-xl text-gray-700">
+                                Ces projets ne sont qu'un aperçu de mon expertise. Contactez-moi pour discuter de vos besoins spécifiques !
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Contact Section */}
+                <section id="contact" className="py-20 bg-gray-50">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-4xl font-bold text-center mb-12 text-purple-700">Contactez-Moi</h2>
+                        <div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl border-t-4 border-purple-500">
+                            <p className="text-lg text-gray-700 text-center mb-8">
+                                Je suis toujours ouvert à de nouvelles opportunités et collaborations. N'hésitez pas à me contacter !
+                            </p>
+                            <form className="space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        placeholder="Votre Nom"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        placeholder="votre.email@exemple.com"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows="5"
+                                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        placeholder="Votre message..."
+                                        required
+                                    ></textarea>
+                                </div>
+                                <div className="text-center">
+                                    <button
+                                        type="submit"
+                                        className="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-medium rounded-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300 transform hover:scale-105"
+                                    >
+                                        Envoyer le Message
+                                    </button>
+                                </div>
+                            </form>
+                            <div className="mt-8 text-center text-gray-600">
+                                <p>Ou retrouvez-moi sur :</p>
+                                <div className="flex justify-center space-x-6 mt-4">
+                                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors duration-300">
+                                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                                    </a>
+                                    <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors duration-300">
+                                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.164-1.11-1.474-1.11-1.474-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.953 0-1.096.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.407.098 2.65.64.7 1.028 1.591 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2Z" clipRule="evenodd" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            {/* Footer */}
+            <footer className="bg-gray-800 text-white py-8 text-center">
+                <div className="container mx-auto px-4">
+                    <p>&copy; {new Date().getFullYear()} Votre Nom. Tous droits réservés.</p>
+                    <p className="text-sm mt-2">
+                        Créé avec <span className="text-red-500">&hearts;</span> et des compétences Laravel 12 exceptionnelles.
+                    </p>
                 </div>
-            </div>
+            </footer>
         </div>
-    </section>
+    );
+};
 
-    ---
-
-    <section id="contact" class="py-12 sm:py-16 bg-gray-950 rounded-b-xl shadow-inner">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-10 border-b-4 border-green-500 pb-2 sm:pb-3 inline-block rounded-sm">
-                Me Contacter
-            </h2>
-            <p class="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Prêt à discuter de votre prochain projet ou à collaborer ? N'hésitez pas à me contacter via les plateformes suivantes :
-            </p>
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
-                <a href="mailto:votre.email@example.com" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-5 sm:py-3 px-6 rounded-full text-sm sm:text-base flex items-center transform hover:scale-105 transition duration-300 shadow-md">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Email
-                </a>
-                <a href="https://linkedin.com/in/votre-profil-linkedin" target="_blank" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2.5 px-5 sm:py-3 px-6 rounded-full text-sm sm:text-base flex items-center transform hover:scale-105 transition duration-300 shadow-md">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 icon-svg" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38-.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 6.4h-5v16h5v-16zm7.982 0h-4.965v16h4.965v-8.733c0-4.085 2.547-6.05 5.867-6.05 3.32 0 5.096 1.965 5.096 6.05v8.733h4.966v-9.62c0-5.83-3.692-8.58-8.995-8.58-4.47 0-7.009 2.527-7.009 6.278v.825z"></path></svg>
-                    LinkedIn
-                </a>
-                <a href="https://github.com/votre-nom-utilisateur-github" target="_blank" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-2.5 px-5 sm:py-3 px-6 rounded-full text-sm sm:text-base flex items-center transform hover:scale-105 transition duration-300 shadow-md">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-2 icon-svg" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.163 6.839 9.48.5.092.682-.217.682-.483 0-.237-.009-.86-.014-1.688-2.782.604-3.369-1.34-3.369-1.34-.455-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.523 2.336 1.082 2.903.827.09-.643.349-1.082.637-1.334-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.03-2.68A4.323 4.323 0 018.84 6.37c.09-.26.368-1.29.086-2.67c0 0-.8-.256-2.64 1.02a9.208 9.208 0 00-2.522.342c-.812 2.228-2.64 1.02-2.64 1.02-.282 1.38.006 2.41.086 2.67.64 0 1.03-.89 1.03-2.68.64-.696 1.53-1.09 2.62-1.09.81 0 1.52.196 2.12.56.29.17.58.38.86.62.63.42 1.13.98 1.58 1.63.45.65.81 1.38 1.08 2.17.27.79.37 1.68.37 2.68 0 3.837-2.335 4.689-4.555 4.943.359.308.678.924.678 1.868 0 1.353-.012 2.443-.012 2.766 0 .269.18.575.689.483C19.135 20.163 22 16.419 22 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                    GitHub
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black py-5 sm:py-6 text-center text-gray-400 text-xs sm:text-sm rounded-t-xl">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <p>&copy; 2025 [Votre Nom]. Tous droits réservés. Propulsé par Laravel.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Adjust for sticky header height
-                    const headerOffset = document.querySelector('header').offsetHeight;
-                    const elementPosition = targetElement.offsetTop;
-                    window.scrollTo({
-                        top: elementPosition - headerOffset,
-                        behavior: 'smooth'
-                    });
-                }
-                // Close mobile menu if open
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1 // Element considered visible when 10% is in view
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fadeInUp-visible');
-                    observer.unobserve(entry.target); // Stop observing once animated
-                }
-            });
-        }, observerOptions);
-
-        // Apply observer to all elements with 'animate-fadeInUp' class
-        document.querySelectorAll('.animate-fadeInUp').forEach(element => {
-            observer.observe(element);
-        });
-
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
-    </script>
-</body>
-</html>
+export default App;
